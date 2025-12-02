@@ -1,0 +1,297 @@
+/* Reset y estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: 'PixelFont';
+    src: local('Courier New');
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background-color: #0a0a0a;
+    color: #00ff00;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    image-rendering: pixelated;
+}
+
+/* Pantallas */
+.screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Pantalla de carga */
+#loading-screen {
+    background: linear-gradient(180deg, #0d0d0d 0%, #1a1a2e 50%, #0d0d0d 100%);
+}
+
+.loading-content {
+    text-align: center;
+}
+
+.game-title {
+    font-size: 3rem;
+    color: #ff0000;
+    text-shadow: 
+        4px 4px 0 #8b0000,
+        -2px -2px 0 #ff6600,
+        0 0 20px #ff0000;
+    margin-bottom: 50px;
+    animation: titlePulse 1s ease-in-out infinite;
+    letter-spacing: 4px;
+}
+
+@keyframes titlePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.loading-bar-container {
+    width: 300px;
+    height: 30px;
+    border: 4px solid #00ff00;
+    background-color: #001100;
+    margin: 0 auto 20px;
+    box-shadow: 
+        0 0 10px #00ff00,
+        inset 0 0 10px rgba(0, 255, 0, 0.2);
+}
+
+.loading-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00ff00, #00cc00, #00ff00);
+    transition: width 0.1s linear;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.loading-text {
+    font-size: 1.5rem;
+    color: #00ff00;
+    animation: blink 0.5s infinite;
+}
+
+@keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.3; }
+}
+
+/* Pantalla del juego */
+#game-screen {
+    background-color: #0a0a0a;
+    flex-direction: column;
+}
+
+.game-hud {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 30px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
+    z-index: 100;
+}
+
+.hud-left, .hud-center, .hud-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hud-label {
+    color: #888888;
+    font-size: 1rem;
+}
+
+.hud-value {
+    color: #00ff00;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px #00ff00;
+}
+
+#game-canvas {
+    border: 4px solid #00ff00;
+    box-shadow: 
+        0 0 20px #00ff00,
+        inset 0 0 20px rgba(0, 255, 0, 0.1);
+    background-color: #000011;
+}
+
+.game-controls {
+    position: fixed;
+    bottom: 10px;
+    text-align: center;
+    color: #666666;
+    font-size: 0.9rem;
+}
+
+/* Pantallas de fin (victoria/derrota) */
+#victory-screen {
+    background: linear-gradient(180deg, #001100 0%, #003300 50%, #001100 100%);
+}
+
+#defeat-screen {
+    background: linear-gradient(180deg, #110000 0%, #330000 50%, #110000 100%);
+}
+
+.end-content {
+    text-align: center;
+    animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.victory-title {
+    font-size: 4rem;
+    color: #00ff00;
+    text-shadow: 
+        4px 4px 0 #008800,
+        0 0 30px #00ff00;
+    margin-bottom: 30px;
+    animation: victoryPulse 0.5s ease-in-out infinite;
+}
+
+@keyframes victoryPulse {
+    0%, 100% { text-shadow: 4px 4px 0 #008800, 0 0 30px #00ff00; }
+    50% { text-shadow: 4px 4px 0 #008800, 0 0 50px #00ff00, 0 0 80px #00ff00; }
+}
+
+.defeat-title {
+    font-size: 4rem;
+    color: #ff0000;
+    text-shadow: 
+        4px 4px 0 #880000,
+        0 0 30px #ff0000;
+    margin-bottom: 30px;
+    animation: defeatPulse 1s ease-in-out infinite;
+}
+
+@keyframes defeatPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+}
+
+.end-message {
+    font-size: 1.5rem;
+    color: #cccccc;
+    margin-bottom: 20px;
+}
+
+.final-score {
+    font-size: 1.8rem;
+    color: #ffff00;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px #ffff00;
+}
+
+.rounds-reached {
+    font-size: 1.3rem;
+    color: #ff6600;
+    margin-bottom: 30px;
+}
+
+.retro-button {
+    font-family: 'Courier New', monospace;
+    font-size: 1.5rem;
+    padding: 15px 40px;
+    background: linear-gradient(180deg, #444444 0%, #222222 100%);
+    color: #00ff00;
+    border: 4px solid #00ff00;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all 0.2s;
+    box-shadow: 
+        0 4px 0 #008800,
+        0 0 10px rgba(0, 255, 0, 0.3);
+    margin-top: 20px;
+}
+
+.retro-button:hover {
+    background: linear-gradient(180deg, #555555 0%, #333333 100%);
+    box-shadow: 
+        0 4px 0 #008800,
+        0 0 20px rgba(0, 255, 0, 0.6);
+    transform: translateY(-2px);
+}
+
+.retro-button:active {
+    transform: translateY(2px);
+    box-shadow: 
+        0 2px 0 #008800,
+        0 0 10px rgba(0, 255, 0, 0.3);
+}
+
+/* Estilo de estrellas de fondo */
+#game-screen::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, #ffffff, transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 90px 40px, #ffffff, transparent),
+        radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 230px 80px, #ffffff, transparent),
+        radial-gradient(2px 2px at 300px 150px, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1px 1px at 370px 60px, #ffffff, transparent),
+        radial-gradient(2px 2px at 450px 130px, rgba(255,255,255,0.8), transparent);
+    background-repeat: repeat;
+    background-size: 500px 200px;
+    pointer-events: none;
+    z-index: -1;
+    animation: starsTwinkle 3s ease-in-out infinite;
+}
+
+@keyframes starsTwinkle {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .game-title {
+        font-size: 1.8rem;
+    }
+    
+    .loading-bar-container {
+        width: 200px;
+    }
+    
+    .victory-title, .defeat-title {
+        font-size: 2.5rem;
+    }
+    
+    .retro-button {
+        font-size: 1rem;
+        padding: 10px 25px;
+    }
+}
