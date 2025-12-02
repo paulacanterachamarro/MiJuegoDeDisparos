@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { COLORS, PLAYER_INITIAL_LIVES } from '../utils/constants';
 
 export const GameHUD = ({ lives, round, score }) => {
-  const hearts = [];
-  for (let i = 0; i < PLAYER_INITIAL_LIVES; i++) {
-    hearts.push(i < lives ? '❤️' : '🖤');
-  }
+  const hearts = useMemo(() => {
+    const result = [];
+    for (let i = 0; i < PLAYER_INITIAL_LIVES; i++) {
+      result.push(i < lives ? '❤️' : '🖤');
+    }
+    return result;
+  }, [lives]);
 
   return (
     <View style={styles.container}>

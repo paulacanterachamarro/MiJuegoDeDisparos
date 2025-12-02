@@ -64,6 +64,10 @@ export const useGame = (canvasWidth, canvasHeight) => {
   const [score, setScore] = useState(0);
   const [round, setRound] = useState(1);
   
+  // Memoize dimensions to prevent unnecessary re-renders
+  const dimensionsRef = useRef({ canvasWidth, canvasHeight });
+  dimensionsRef.current = { canvasWidth, canvasHeight };
+  
   const playerRef = useRef(null);
   const enemyRef = useRef(null);
   const playerBulletsRef = useRef([]);
@@ -74,6 +78,7 @@ export const useGame = (canvasWidth, canvasHeight) => {
   const animationFrameRef = useRef(null);
   
   const initGame = useCallback(() => {
+    const { canvasWidth, canvasHeight } = dimensionsRef.current;
     playerRef.current = createPlayer(canvasWidth, canvasHeight);
     enemyRef.current = createEnemy(1, canvasWidth);
     playerBulletsRef.current = [];
@@ -84,7 +89,7 @@ export const useGame = (canvasWidth, canvasHeight) => {
     setScore(0);
     setRound(1);
     setGameScreen('playing');
-  }, [canvasWidth, canvasHeight]);
+  }, []);
 
   const shoot = useCallback(() => {
     if (!playerRef.current || !playerRef.current.canShoot || !isRunningRef.current) return;
@@ -121,6 +126,7 @@ export const useGame = (canvasWidth, canvasHeight) => {
         return prevRound;
       }
       
+      const { canvasWidth } = dimensionsRef.current;
       playerBulletsRef.current = [];
       enemyBulletsRef.current = [];
       enemyRef.current = createEnemy(newRound, canvasWidth);
@@ -131,7 +137,7 @@ export const useGame = (canvasWidth, canvasHeight) => {
       
       return newRound;
     });
-  }, [canvasWidth]);
+  }, []);
 
   const playerHit = useCallback(() => {
     setLives((prevLives) => {
@@ -153,6 +159,8 @@ export const useGame = (canvasWidth, canvasHeight) => {
 
   const update = useCallback(() => {
     if (!isRunningRef.current) return null;
+    
+    const { canvasWidth, canvasHeight } = dimensionsRef.current;
 
     // Update player position
     if (playerRef.current) {
@@ -237,7 +245,7 @@ export const useGame = (canvasWidth, canvasHeight) => {
       enemyBullets: [...enemyBulletsRef.current],
       isPlayerInvincible: playerInvincibleRef.current,
     };
-  }, [canvasWidth, canvasHeight, round, nextRound, playerHit]);
+  }, [round, nextRound, playerHit]);
 
   const restart = useCallback(() => {
     initGame();

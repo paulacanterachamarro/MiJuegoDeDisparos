@@ -11,6 +11,9 @@ import {
 } from '../src/components';
 import { useGame } from '../src/hooks/useGame';
 
+// Target 60 FPS (1000ms / 60 frames ≈ 16.67ms per frame)
+const FRAME_INTERVAL_MS = 16;
+
 export default function Game() {
   const { width: CANVAS_WIDTH, height: CANVAS_HEIGHT } = getCanvasDimensions();
   
@@ -36,7 +39,7 @@ export default function Game() {
     if (gameScreen !== 'playing') return;
 
     const gameLoop = (timestamp) => {
-      if (timestamp - lastTimeRef.current >= 16) { // ~60 FPS
+      if (timestamp - lastTimeRef.current >= FRAME_INTERVAL_MS) {
         const state = update();
         if (state) {
           setGameState(state);

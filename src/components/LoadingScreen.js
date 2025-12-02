@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, StyleSheet, Animated } from 'react-native';
 import { COLORS } from '../utils/constants';
 
 export const LoadingScreen = ({ onLoadingComplete }) => {
   const [progress, setProgress] = useState(0);
-  const scaleAnim = new Animated.Value(1);
+  const scaleAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
     // Animación del título
