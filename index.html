@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Juego de Disparos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Pantalla de carga -->
+    <div id="loading-screen" class="screen">
+        <div class="loading-content">
+            <h1 class="game-title">MI JUEGO DE DISPAROS</h1>
+            <div class="loading-bar-container">
+                <div class="loading-bar" id="loading-bar"></div>
+            </div>
+            <p class="loading-text">CARGANDO...</p>
+        </div>
+    </div>
+
+    <!-- Pantalla principal del juego -->
+    <div id="game-screen" class="screen hidden">
+        <div class="game-hud">
+            <div class="hud-left">
+                <span class="hud-label">VIDAS:</span>
+                <span id="lives" class="hud-value">❤️❤️❤️</span>
+            </div>
+            <div class="hud-center">
+                <span class="hud-label">RONDA:</span>
+                <span id="round" class="hud-value">1</span>
+            </div>
+            <div class="hud-right">
+                <span class="hud-label">PUNTOS:</span>
+                <span id="score" class="hud-value">0</span>
+            </div>
+        </div>
+        <canvas id="game-canvas"></canvas>
+        <div class="game-controls">
+            <p>← → MOVERSE | ESPACIO DISPARAR</p>
+        </div>
+    </div>
+
+    <!-- Pantalla de victoria -->
+    <div id="victory-screen" class="screen hidden">
+        <div class="end-content">
+            <h1 class="victory-title">¡VICTORIA!</h1>
+            <p class="end-message">Has completado todas las rondas</p>
+            <p class="final-score">Puntuación final: <span id="victory-score">0</span></p>
+            <button id="play-again-victory" class="retro-button">JUGAR DE NUEVO</button>
+        </div>
+    </div>
+
+    <!-- Pantalla de derrota -->
+    <div id="defeat-screen" class="screen hidden">
+        <div class="end-content">
+            <h1 class="defeat-title">GAME OVER</h1>
+            <p class="end-message">Has perdido todas tus vidas</p>
+            <p class="final-score">Puntuación final: <span id="defeat-score">0</span></p>
+            <p class="rounds-reached">Llegaste a la ronda: <span id="rounds-reached">1</span></p>
+            <button id="play-again-defeat" class="retro-button">JUGAR DE NUEVO</button>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
