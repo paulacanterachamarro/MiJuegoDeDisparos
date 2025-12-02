@@ -42,6 +42,13 @@ const ENEMY_HEIGHT = 40;
 const BULLET_WIDTH = 6;
 const BULLET_HEIGHT = 15;
 
+// Constantes de balance del enemigo
+const BASE_ENEMY_HEALTH = 3;
+const HEALTH_INCREMENT_PER_ROUND = 2;
+const BASE_SHOOT_INTERVAL = 2000;
+const MIN_SHOOT_INTERVAL = 800;
+const INTERVAL_DECREASE_PER_ROUND = 150;
+
 // Estado del juego
 let gameState = {
     player: null,
@@ -285,9 +292,9 @@ class Enemy {
         this.baseSpeed = 2;
         this.speed = this.baseSpeed + (round - 1) * 0.3;
         this.direction = 1;
-        this.maxHealth = 3 + (round - 1) * 2; // Vida aumenta con las rondas
+        this.maxHealth = BASE_ENEMY_HEALTH + (round - 1) * HEALTH_INCREMENT_PER_ROUND;
         this.health = this.maxHealth;
-        this.shootInterval = Math.max(800, 2000 - (round - 1) * 150); // Dispara más rápido en rondas más altas
+        this.shootInterval = Math.max(MIN_SHOOT_INTERVAL, BASE_SHOOT_INTERVAL - (round - 1) * INTERVAL_DECREASE_PER_ROUND);
         this.lastShot = Date.now();
         this.hitFlash = 0;
     }
